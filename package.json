@@ -1,0 +1,30 @@
+{
+  "name": "fare-reminder",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm run webui-build && npm run lambda-build && npm run cfn-build",
+    "cfn-build": "npm run cfn-package && npm run lambda-inline",
+    "cfn-deploy": "aws s3 cp ./templates/template.yaml s3://rekognition-engagement-meter/ --acl public-read",
+    "cfn-ensure-dist": "if [ ! -d './templates' ]; then mkdir templates; fi",
+    "cfn-package": "npm run cfn-ensure-dist && cfn-flip -c -n -l src/cfn/template.yaml templates/template.yaml",
+    "deploy": "npm run webui-deploy && npm run cfn-deploy",
+    "lambda-build": "cd src/functions/setup && npm run build",
+    "lambda-inline": "cd src/functions/setup && npm run inline",
+    "pre-deploy-test": "taskcat -c ci/taskcat.yml --verbose --exclude docs --exclude src --exclude taskcat_outputs",
+    "postinstall": "cd src/web-ui && npm i && cd ../functions/setup && npm i",
+    "start": "cd src/web-ui && npm start",
+    "test": "cfn-lint templates/template.yaml",
+    "webui-build": "cd src/web-ui && npm run build",
+    "webui-deploy": "cd src/web-ui/build && aws s3 cp . s3://rekognition-engagement-meter/static --recursive --acl public-read --exclude settings.js --exclude .DS_Store",
+    "webui-deploy-clean": "aws s3 rm s3://rekognition-engagement-meter/static --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artitw/fare-reminder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/artitw/fare-reminder/issues"
+  },
+  "homepage": "https://github.com/artitw/fare-reminder#readme"
+}
