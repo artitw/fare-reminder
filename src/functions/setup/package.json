@@ -9,7 +9,7 @@
     "inline": "node ./build/inline.js"
   },
   "dependencies": {
-    "aws-sdk": "2.369.0"
+    "aws-sdk": "2.814.0"
   },
   "devDependencies": {
     "js-yaml": "3.13.1",
