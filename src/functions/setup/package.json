@@ -16,6 +16,6 @@
     "uglify-es": "3.3.9",
     "uglifyjs": "2.4.11",
     "webpack": "4.28.3",
-    "webpack-cli": "3.2.1"
+    "webpack-cli": "3.3.12"
   }
 }
